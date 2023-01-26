@@ -16,3 +16,20 @@ multiprocessing library (https://docs.python.org/3/library/multiprocessing.html 
 other you choose).
 Output. For this exercise, you must provide the source code and a short report presenting the
 different libraries used, what you have learned and the difficulties encountered.
+
+## Exercice_02_Group_3
+----------------------
+
+This folder is the requested output for Exercice 02: PARALLEL PROGRAMMING ON PYTHON
+
+It contains:
+ * program_Group_3.py: the script, the source code of the exercice.
+
+ * result_02_Group_3: A text file which conatins the standard output of program_Group_3.py
+ 
+ * Report_Group_3.txt: A small report on the script.
+ 
+ [ PS ]: 
+ * Please to add the dataset "GlobalLandTemperaturesByCity.csv" to this folder befor executing the script
+ * Please to set the "python interpreter". We recommand if anaconda is installed to use its python interpreter
+

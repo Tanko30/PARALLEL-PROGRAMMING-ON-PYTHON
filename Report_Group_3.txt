@@ -1,0 +1,67 @@
+---------------------------------------------------------------------------------------------------
+
+COURSE: HIGH PERFORMANCE COMPUTING SYSTEM
+
+LECTURE: Dr. Abdoul Kader KABORE
+
+GROUP 3: WASCAL Iformatics for Climate Change Batch 2 (2020-2021)
+	BAYAH Ernest Kwame (mcbayah@gmail.com)
+	BOUBAKAR Zourkalaini (tankostick@gmail.com)
+	JAWLA Haddy (haddyjawla23@gmail.com)
+
+Purpose:  Report on Exercice 02: PARALLEL PROGRAMMING ON PYTHON
+
+date: Friday 18, June 2021
+------------------------------------------------------------------------------------------------------
+
+CONTENTS OF THIS FILE
+-----------------------------------
+
+ * Overview of the dataset
+ * The multiprocessing implementation
+ * The packages used in the implementation
+ * Challenges we faced
+ * Other packages we encountered
+
+
+OVERVIEW OF THE DATASET
+---------------------------------------
+The dataset "GlobalLandTemperautreByCity.csv" comes from Berkeley Earth data. The dataset shows the temperature records around the world. The file is made of 8599212 rows × 7 entries.
+
+PS: The file can be found at (https://drive.google.com/file/d/1h8NOrfXwdPZ3Nw0wR3ZgrejcRYo4yjpd/view?usp=sharing) and it should be added to in Exercice_02_Group_3 folder before runing the script.
+
+
+THE MULTIPROCESSING IMPLEMENTATION
+-----------------------------------------------------------
+In the script we created a function called Parallelize(). We used it to parallelise the dataset processing.
+Two main tasks to be done with the dataset are:
+* Compute the Global Average Temperature: For this purpose, we have created a function called MeanTemp().
+* Compute the highest Temperature: Again we created  a function for this purpose called Maxemp().
+The multiprocessing comes in these two processing.  
+First we divided the  8599212 rows × 7 entries dataset in "N" partitions with "N = number of core of the computer on which the script will run". Then each "Core" computes simultaniously the Global Average Temperature (respectively the Highest temperature). The next step is to gather the result from these "Cores" (in our case with 8 cores we had as result of gathering 648 rows entries. The previous result is then passed to MeanTemp (respectivement MaxTemp) to compute the final Global Average Temperature (respectively Highest Temperature).
+
+[PS]: With this multiprocessing instead of processing 8599212 rows × 7 entries in serial, only 648 rows entries are processed sequentially. And we think that we could do more with 159 rows(total number of country) but we had faced some that we will explain further.
+
+THE PACKAGES USED IN THE IMPLEMENTATION
+--------------------------------------------------------------------
+We used 4 different packages in this project.
+* pandas: to load the dataset more easily.
+* numpy: to convert the dataset into numpy array and then process it like an array.
+* multiprocessing: for multiprocessing task.
+	- multiprocessing.Pool: to generate pool of task.
+	- multiprocessing.cpu_count(): to get the number of cores of the computer hadware
+* tabulate: for final result printing. 
+
+CHALLENGES WE FACED
+----------------------------------
+In the dataset the total number of country is 159. That means we could have process in serial mode only 159 rows in theory. But the real issue is that we are not working only on one column, beacause a record can be made in one country several time so for instaance to compute Global Average Temperature we have to work on both country column and AverageTemperature column.
+In reallity this issue is not a real one beacause if we were able to share variables among cores, after we just need to concatanate the result without doing any serial programming anymore.
+
+[PS]: For variable sharing multiprocessing provide multiprocessing.Manager() tool. We tried it but we could not be able to share variable between different pool. In the documentation of multiprocessing Manager() is used with multiprocessing.Process which one we did not use for some reasons.
+
+OTHER PACKAGES WE ENCOUNTERED
+------------------------------------------------------
+During this project we encounted many other way of multiprocessing in Pyhton langage programming.
+* dask: Very usefull for pandas multiprocessing. But the processing of the dataframe should be only on one column.
+* pandarallel: For pandas parallel processing like dask only dataframe.apply function can be used with.
+* concurrent: Pyhton package for concurrent programming
